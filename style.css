@@ -1,0 +1,151 @@
+body {
+  scroll-behavior: smooth;
+  background-color: wheat;
+}
+
+.hero {
+  background: linear-gradient(135deg, #141414, #212121);
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero img {
+    width: 100%;
+}
+
+footer {
+  background-color: #212529;
+  color: #adb5bd;
+}
+
+.moi_main{
+    display: flex;
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 5px;
+    margin-bottom: 100px;
+}
+
+.moi_main p {
+    width: 40%;
+    padding: 60px;
+}
+
+.moi_main img{
+    width: 60%;
+    align-content: center;
+    border-radius: 10px;
+    box-shadow: 0 0 25 #141414;
+}
+.container h1 {
+  text-align: center;
+}
+
+.mes_domaines {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.domain-card {
+  display: block;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  text-decoration: none;
+  color: #212529;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.domain-card img {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.domain-card h5 {
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.domain-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.cards-top,
+.cards-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+}
+
+.cards-top {
+  margin-bottom: 2rem;
+}
+
+
+#chimie {
+  background-color: #f8f9fa;
+}
+
+
+#chimie h2 {
+  font-size: 2.2rem;
+}
+
+#chimie h4 {
+  margin-bottom: 15px;
+}
+
+
+#chimie iframe {
+  border-radius: 10px;
+}
+
+#chimie img {
+  border-radius: 10px;
+  transition: transform 0.2s ease;
+}
+
+#chimie img:hover {
+  transform: scale(1.03);
+}
+
+#chimie p {
+  color: #495057;
+  line-height: 1.6;
+}
+
+.video-chimie {
+  margin-bottom: 200px;
+}
+
+#chimie {
+  background-color: white;
+}
+
+#apropos-chimie {
+  background-color: wheat;
+}
+
+img {
+  object-fit: cover;
+}
+
+.shadow-sm {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.btn {
+  min-width: 200px;
+}
+
+.img-thumbnail {
+  max-width: 200px;
+}
+
+.lien {
+  align-items: center;
+}
