@@ -64,11 +64,31 @@
     <h2 class="mb-4">L'histoire du projet</h2>
     <div class="row align-items-center g-4 mb-5">
       <div class="col-lg-7">
-        <p class="fs-5">Écris ici comment est née l'idée de la fusée : ce qui t'a motivé, le contexte (école, club, passion personnelle), l'équipe éventuelle…</p>
-        <p>Raconte ensuite les premières étapes : premiers calculs, premiers croquis, premiers échecs et ce que tu en as appris. Tu peux écrire autant de paragraphes que nécessaire.</p>
+        <p class="fs-5">Un petit mot sur le projet précedant Delta : Omicron</p>
+        <p>J'ai commencé pandant l'été 2025 un projet appeler Omicron, un petit projet de moteur fusée miniature imprimé en 3D. Le but était de
+          tester les différente forme de tuyère ainsi que de comprendre comment fonctionne la fabrication et le casting du carburant à petite échelle.
+        </p>
       </div>
       <div class="col-lg-5"><img src="histoire1.jpg" data-ph="Image histoire 1" class="img-fluid rounded-4 shadow" alt=""></div>
     </div>
+
+  <div class="container">
+    <h2 class="mb-4">Un peu plus de détailles</h2>
+    <div class="row align-items-center g-4 mb-5">
+      <div class="col-lg-7">
+        <p>
+          Ce projet utilise un carburant appeler KNSU, mélange de 65% de nitrate de potassium et 35% de sorbitol (sucre que l'on trouve dans les pruneaux) 
+          J'y ajoute aussi 2% d'oxyde de ferIII pour accéléré la combustion.
+        </p>
+        <p> 
+          Les corps des moteurs on été normalisé et imprimer toujour de la même façon de façon à ne laisser comme variable uniquement la forme de la tuyère.
+          Aucun calcul précis ont été réalisé sur ces moteur à part la dernière tuyère qui à été modélisé en utilisant Openmotor.
+          Sur le dernier moteur j'ai inclu une balance pour mesuré la poussée maximal qui à atteint un pic de 91g.
+        </p>
+      </div>
+      <div class="col-lg-5"><img src="histoire1.jpg" data-ph="Image histoire 1" class="img-fluid rounded-4 shadow" alt=""></div>
+    </div>
+  </div>
     <div class="row align-items-center g-4">
       <div class="col-lg-5 order-2 order-lg-1"><img src="histoire2.jpg" data-ph="Image histoire 2" class="img-fluid rounded-4 shadow" alt=""></div>
       <div class="col-lg-7 order-1 order-lg-2">
@@ -140,10 +160,8 @@ const N = 5, MAX_OPEN = 0.3, RADIUS = 0.25;
 
 const TODO = [{ title:'Rôle', text:'À compléter…' }, { title:'Conception', text:'À compléter…' }, { title:'Fabrication', text:'À compléter…' }];
 const PARTS = [
-  { name:'Coiffe',       x:88, y:50, image:'coiffe.jpg',   lead:"Protège la charge utile et réduit la traînée aérodynamique.", specs:['Matériau : à compléter','Longueur : à compléter'], sections:TODO },
   { name:'Parachute',    x:72, y:50, image:'parachute.jpg',lead:"Se déploie à l'apogée pour ramener la fusée au sol en douceur.", specs:['Diamètre : à compléter','Déclenchement : à compléter'], sections:TODO },
   { name:'Électronique', x:55, y:50, image:'electronique.jpg', lead:"Altimètre, accéléromètre et carte de contrôle qui pilotent le vol.", specs:['Microcontrôleur : à compléter','Capteurs : à compléter'], sections:TODO },
-  { name:'Réservoir',    x:38, y:50, image:'reservoir.jpg',lead:"Stocke le propergol alimentant le moteur.", specs:['Capacité : à compléter'], sections:TODO },
   { name:'Moteur',       x:20, y:50, image:'moteur.jpg',   lead:"Fournit la poussée nécessaire au décollage.", specs:['Poussée : à compléter','Impulsion : à compléter'], sections:TODO },
   { name:'Ailerons',     x:8,  y:50, image:'ailerons.jpg', lead:"Stabilisent la fusée pendant le vol.", specs:['Nombre : à compléter','Matériau : à compléter'], sections:TODO }
 ];
