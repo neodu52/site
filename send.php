@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -16,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $headers = "From: $email";
 
   mail($to, $subject, $body, $headers);
-
+   
   echo "Message envoyé.";
 
 }
