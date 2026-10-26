@@ -16,17 +16,17 @@
 
   /* ---- Fusée interactive ---- */
   #stage { position:relative; width:min(100%, calc((100vh - 170px) * 16 / 9)); aspect-ratio:16/9; overflow:hidden; border-radius:1rem;
-           margin:0 auto; border:1px solid #1d2f63; cursor:crosshair; touch-action:none; }
-  #inner { position:absolute; inset:0;
-           background:
-             linear-gradient(rgba(90,140,255,.14) 1px, transparent 1px) 0 0/32px 32px,
-             linear-gradient(90deg, rgba(90,140,255,.14) 1px, transparent 1px) 0 0/32px 32px, #07122e; }
-  .hotspot { position:absolute; transform:translate(-50%,-50%); border:2px solid #5a8cff; background:rgba(90,140,255,.25);
-             color:#fff; border-radius:.5rem; padding:.35rem .6rem; font-size:.8rem; white-space:nowrap; cursor:pointer;
-             transition:opacity .15s; opacity:0; pointer-events:none; }
-  .hotspot:hover, .hotspot.active { background:#ff7a3d; border-color:#ff7a3d; }
-  .panel { position:absolute; pointer-events:none; transition:transform .15s ease-out; will-change:transform;}
+           margin:0 auto; border:1px solid #1d2f63; touch-action:none; }
+  #inner { position:absolute; inset:0; background-color:#07122e; background-size:100% 100%; }
 
+  /* Zones cliquables des composants (une pièce peut avoir plusieurs rectangles) */
+  .zone { position:absolute; pointer-events:none; border:2px solid transparent; border-radius:4px; transition:all .12s; }
+  .zone.hover  { border-color:#fff; background:rgba(255,255,255,.15); box-shadow:0 0 14px rgba(255,255,255,.85); }
+  .zone.active { border-color:#ff7a3d; }
+  #tip { position:absolute; pointer-events:none; background:#fff; color:#111; font-size:.8rem; font-weight:600;
+         padding:.2rem .55rem; border-radius:.4rem; opacity:0; transform:translate(12px,12px); transition:opacity .1s; z-index:5; }
+
+  .panel { position:absolute; pointer-events:none; transition:transform .15s ease-out; will-change:transform; }
   #detail img.part-img { width:100%; border-radius:.75rem; object-fit:cover; }
 </style>
 </head>
@@ -64,26 +64,26 @@
     <h2 class="mb-4">L'histoire du projet</h2>
     <div class="row align-items-center g-4 mb-5">
       <div class="col-lg-7">
-        <p class="fs-5">Un petit mot sur le projet précedant Delta : Omicron</p>
-        <p>J'ai commencé pandant l'été 2025 un projet appeler Omicron, un petit projet de moteur fusée miniature imprimé en 3D. Le but était de
-          tester les différente forme de tuyère ainsi que de comprendre comment fonctionne la fabrication et le casting du carburant à petite échelle.
+        <p class="fs-5">Un petit mot sur le projet précédent Delta : Omicron</p>
+        <p>J'ai commencé pendant l'été 2025 un projet appelé Omicron, un petit projet de moteur de fusée miniature imprimé en 3D. Le but était de
+          tester les différentes formes de tuyère, ainsi que de comprendre comment fonctionnent la fabrication et le casting du carburant à petite échelle.
         </p>
       </div>
       <div class="col-lg-5"><img src="histoire1.jpg" data-ph="Image histoire 1" class="img-fluid rounded-4 shadow" alt=""></div>
     </div>
 
   <div class="container">
-    <h2 class="mb-4">Un peu plus de détailles</h2>
+    <h2 class="mb-4">Un peu plus de détails</h2>
     <div class="row align-items-center g-4 mb-5">
       <div class="col-lg-7">
         <p>
-          Ce projet utilise un carburant appeler KNSU, mélange de 65% de nitrate de potassium et 35% de sorbitol (sucre que l'on trouve dans les pruneaux) 
-          J'y ajoute aussi 2% d'oxyde de ferIII pour accéléré la combustion.
+          Ce projet utilise un carburant appelé KNSU, un mélange de 65 % de nitrate de potassium et 35 % de sorbitol (un sucre que l'on trouve dans les pruneaux).
+          J'y ajoute aussi 2 % d'oxyde de fer III pour accélérer la combustion.
         </p>
         <p> 
-          Les corps des moteurs on été normalisé et imprimer toujour de la même façon de façon à ne laisser comme variable uniquement la forme de la tuyère.
-          Aucun calcul précis ont été réalisé sur ces moteur à part la dernière tuyère qui à été modélisé en utilisant Openmotor.
-          Sur le dernier moteur j'ai inclu une balance pour mesuré la poussée maximal qui à atteint un pic de 91g.
+          Les corps des moteurs ont été normalisés et imprimés toujours de la même façon, de manière à ne laisser comme seule variable que la forme de la tuyère.
+          Aucun calcul précis n'a été réalisé sur ces moteurs, à part pour la dernière tuyère, qui a été modélisée avec OpenMotor.
+          Sur le dernier moteur, j'ai inclus une balance pour mesurer la poussée maximale, qui a atteint un pic de 91 g.
         </p>
       </div>
       <div class="col-lg-5"><img src="histoire1.jpg" data-ph="Image histoire 1" class="img-fluid rounded-4 shadow" alt=""></div>
@@ -104,15 +104,82 @@
 <section id="fusee" class="bg-navy">
   <div class="container-fluid px-3 px-lg-4">
     <h2 class="h3 mb-1 text-center">Explore l'intérieur</h2>
-    <p class="text-white-50 mb-3 text-center small">Passe la souris sur la fusée pour l'ouvrir, puis clique sur un composant : les détails s'affichent en dessous.</p>
-    <div id="stage"><div id="inner"></div></div>
+    <p class="text-white-50 mb-3 text-center small">Passe la souris sur la fusée pour l'ouvrir, survole un composant puis clique dessus : sa description s'affiche en dessous.</p>
+    <div id="stage"><div id="inner"></div><div id="tip"></div></div>
   </div>
 </section>
 
-<!-- 4. EXPLICATION (change au clic) -->
+<!-- 4. EXPLICATION (le contenu est repris du <template> du composant cliqué) -->
 <section id="explication" class="bg-white py-5" style="min-height:60vh;">
   <div class="container" id="detail"></div>
 </section>
+
+<!-- ============ DESCRIPTIONS DES COMPOSANTS ============
+     Un <template id="desc-XXX"> par composant (XXX = l'id du composant dans PARTS).
+     Écris à l'intérieur le HTML / Bootstrap que tu veux : chaque description peut avoir une mise en page totalement différente. -->
+<div hidden>
+
+  <template id="desc-intro">
+    <h2 class="h1">Les composants de la fusée</h2>
+    <p class="lead text-secondary">Clique sur un composant dans la coupe de la fusée ci-dessus : toute cette zone se remplira avec son explication détaillée.</p>
+  </template>
+
+  <!-- MOTEUR : texte + fenêtre (future vue qui tourne) + tableau -->
+  <template id="desc-moteur">
+    <h2 class="display-5 fw-bold">Moteur</h2>
+    <p class="lead text-secondary">Fournit la poussée nécessaire au décollage.</p>
+    <div class="row g-5 mt-1">
+      <div class="col-lg-6">
+        <h3 class="h4">Fonctionnement</h3>
+        <p>À compléter…</p>
+        <h3 class="h4 mt-4">Fabrication</h3>
+        <ul><li>Étape 1 : à compléter</li><li>Étape 2 : à compléter</li></ul>
+      </div>
+      <div class="col-lg-6">
+        <!-- Emplacement de la future fenêtre où le moteur tourne -->
+        <div id="viewer-moteur" class="ratio ratio-4x3 bg-light border rounded-4">
+          <div class="d-flex align-items-center justify-content-center text-secondary">Vue rotative du moteur (à venir)</div>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped mt-5">
+      <thead><tr><th>Caractéristique</th><th>Valeur</th></tr></thead>
+      <tbody><tr><td>Poussée</td><td>à compléter</td></tr><tr><td>Impulsion</td><td>à compléter</td></tr></tbody>
+    </table>
+  </template>
+
+  <!-- PARACHUTE : simple colonne de texte avec image -->
+  <template id="desc-parachute">
+    <h2 class="display-5 fw-bold">Parachute</h2>
+    <div class="row g-4">
+      <div class="col-md-8"><p class="lead">Se déploie à l'apogée pour ramener la fusée au sol en douceur.</p><p>À compléter…</p></div>
+      <div class="col-md-4"><img class="part-img" src="parachute.jpg" data-ph="parachute.jpg" alt="Parachute"></div>
+    </div>
+  </template>
+
+  <!-- ÉLECTRONIQUE : cartes -->
+  <template id="desc-electronique">
+    <h2 class="display-5 fw-bold">Électronique de bord</h2>
+    <p class="lead text-secondary">Altimètre, accéléromètre et carte de contrôle qui pilotent le vol.</p>
+    <div class="row g-4">
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h5">Microcontrôleur</h3><p class="mb-0">À compléter…</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h5">Capteurs</h3><p class="mb-0">À compléter…</p></div></div></div>
+      <div class="col-md-4"><div class="card h-100"><div class="card-body"><h3 class="h5">Alimentation</h3><p class="mb-0">À compléter…</p></div></div></div>
+    </div>
+  </template>
+
+  <!-- AILERONS : texte + galerie -->
+  <template id="desc-ailerons">
+    <h2 class="display-5 fw-bold">Ailerons</h2>
+    <p class="lead text-secondary">Stabilisent la fusée pendant le vol.</p>
+    <p>À compléter…</p>
+    <div class="row g-3">
+      <div class="col-6"><img class="part-img" src="ailerons1.jpg" data-ph="ailerons1.jpg" alt=""></div>
+      <div class="col-6"><img class="part-img" src="ailerons2.jpg" data-ph="ailerons2.jpg" alt=""></div>
+    </div>
+  </template>
+
+</div>
 
 <!-- FOOTER -->
 <footer class="bg-dark text-light pt-5 pb-3">
@@ -151,24 +218,28 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-/* ====== À PERSONNALISER ======
-   x / y : position du composant en % de l'image de la fusée.
-   lead  : phrase d'accroche. image : photo du composant (optionnelle).
-   specs : caractéristiques.  sections : autant de blocs titre + texte (HTML autorisé) que tu veux. */
+/* ============ À PERSONNALISER ============
+   PHOTO : photo extérieure de la fusée (celle qui se sépare).
+   COUPE : image en vue de coupe (ce qu'on découvre dessous). Même ratio 16/9 que la photo.
+   PARTS : un objet par composant.
+     id    -> relie le composant à <template id="desc-ID"> plus haut
+     rects -> liste de rectangles { x, y, w, h } en % de l'image de coupe
+              (x,y = coin haut-gauche ; 0,0 = haut-gauche de l'image ; 100,100 = bas-droite).
+              Une pièce de forme complexe = plusieurs rectangles (ils s'allument ensemble). */
 const PHOTO = 'fusee_rendu.png';
+const COUPE = 'fusee_coupe.png';
 const N = 5, MAX_OPEN = 0.3, RADIUS = 0.25;
 
-const TODO = [{ title:'Rôle', text:'À compléter…' }, { title:'Conception', text:'À compléter…' }, { title:'Fabrication', text:'À compléter…' }];
 const PARTS = [
-  { name:'Parachute',    x:72, y:50, image:'parachute.jpg',lead:"Se déploie à l'apogée pour ramener la fusée au sol en douceur.", specs:['Diamètre : à compléter','Déclenchement : à compléter'], sections:TODO },
-  { name:'Électronique', x:55, y:50, image:'electronique.jpg', lead:"Altimètre, accéléromètre et carte de contrôle qui pilotent le vol.", specs:['Microcontrôleur : à compléter','Capteurs : à compléter'], sections:TODO },
-  { name:'Moteur',       x:20, y:50, image:'moteur.jpg',   lead:"Fournit la poussée nécessaire au décollage.", specs:['Poussée : à compléter','Impulsion : à compléter'], sections:TODO },
-  { name:'Ailerons',     x:8,  y:50, image:'ailerons.jpg', lead:"Stabilisent la fusée pendant le vol.", specs:['Nombre : à compléter','Matériau : à compléter'], sections:TODO }
+  { id:'parachute',    name:'Parachute',    rects:[ {x:60, y:40, w:18, h:20} ] },
+  { id:'electronique', name:'Électronique', rects:[ {x:42, y:42, w:15, h:16} ] },
+  { id:'moteur',       name:'Moteur',       rects:[ {x:14, y:40, w:22, h:20}, {x:8, y:46, w:6, h:8} ] },   // gros rectangle + tuyère
+  { id:'ailerons',     name:'Ailerons',     rects:[ {x:6, y:24, w:10, h:16}, {x:6, y:60, w:10, h:16} ] }
 ];
 
-/* Images de secours */
-const ph = (t, fill='#cbbf9f') => 'data:image/svg+xml;utf8,' + encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="${fill}"/>
+/* ---------- Images de secours ---------- */
+const ph = t => 'data:image/svg+xml;utf8,' + encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#cbbf9f"/>
    <text x="400" y="225" font-size="28" fill="#555" text-anchor="middle" font-family="sans-serif">${t}</text></svg>`);
 function applyFallbacks(root=document){
   root.querySelectorAll('img[data-ph]').forEach(img => {
@@ -177,53 +248,44 @@ function applyFallbacks(root=document){
   });
 }
 applyFallbacks();
-const FALLBACK = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+const FALLBACK_PHOTO = 'data:image/svg+xml;utf8,' + encodeURIComponent(
  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450"><rect width="800" height="450" fill="#9fc3e8"/>
   <rect y="360" width="800" height="90" fill="#5b7a4a"/>
   <polygon points="620,185 760,225 620,265" fill="#e84b3c"/><rect x="170" y="185" width="450" height="80" fill="#f2f2f2"/>
-  <rect x="330" y="185" width="14" height="80" fill="#e84b3c"/><rect x="170" y="185" width="450" height="12" fill="#ddd"/>
   <polygon points="170,185 110,130 230,185" fill="#e84b3c"/><polygon points="170,265 110,320 230,265" fill="#e84b3c"/>
   <rect x="130" y="212" width="40" height="26" fill="#555"/></svg>`);
+// Coupe de secours : dessinée automatiquement à partir des rectangles de PARTS
+const FALLBACK_COUPE = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+ `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><rect width="100" height="100" fill="#07122e"/>
+  <rect x="4" y="36" width="92" height="28" rx="3" fill="#10204a" stroke="#2f4a8a" stroke-width=".4"/>` +
+  PARTS.map(p => p.rects.map(r => `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="#2c4a8f" stroke="#5a8cff" stroke-width=".4"/>`).join('')).join('') + `</svg>`);
 
-/* ---- Zone d'explication ---- */
+/* ---------- Zone d'explication ---------- */
 const detail = document.getElementById('detail');
-function showIntro(){
-  detail.innerHTML = `<h2 class="h1">Les composants de la fusée</h2>
-    <p class="lead text-secondary">Clique sur un composant dans la fusée ci-dessus : toute cette zone se remplira avec son explication détaillée.</p>`;
-}
-function showPart(p){
-  detail.innerHTML = `
-    <a href="#fusee" class="btn btn-outline-dark btn-sm mb-3">↑ Retour à la fusée</a>
-    <h2 class="display-5 fw-bold">${p.name}</h2>
-    <p class="lead text-secondary">${p.lead}</p>
-    <div class="row g-5 mt-1">
-      <div class="col-lg-7">${p.sections.map(s => `<h3 class="h4 mt-4">${s.title}</h3><p>${s.text}</p>`).join('')}</div>
-      <div class="col-lg-5">
-        <img class="part-img mb-4 shadow-sm" src="${p.image}" data-ph="${p.name} (${p.image})" alt="${p.name}">
-        <div class="card"><div class="card-header fw-bold">Caractéristiques</div>
-          <ul class="list-group list-group-flush">${p.specs.map(s => `<li class="list-group-item">${s}</li>`).join('')}</ul></div>
-      </div>
-    </div>`;
+function render(id, withBack){
+  const tpl = document.getElementById('desc-' + id);
+  detail.innerHTML = (withBack ? '<a href="#fusee" class="btn btn-outline-dark btn-sm mb-3">↑ Retour à la fusée</a>' : '')
+    + (tpl ? tpl.innerHTML : '<p class="text-secondary">Description à venir…</p>');
   applyFallbacks(detail);
+}
+render('intro', false);
+function showPart(p){
+  render(p.id, true);
   document.getElementById('explication').scrollIntoView({ behavior:'smooth' });
 }
-showIntro();
 
-/* ---- Fusée ---- */
-const stage = document.getElementById('stage'), inner = document.getElementById('inner');
-const spots = PARTS.map(p => {
-  const b = document.createElement('button');
-  b.className = 'hotspot'; b.textContent = p.name;
-  b.style.left = p.x + '%'; b.style.top = p.y + '%';
-  b.addEventListener('click', () => {
-    spots.forEach(h => h.el.classList.remove('active'));
-    b.classList.add('active');
-    showPart(p);
-  });
-  inner.appendChild(b);
-  return { el:b, x:p.x };
-});
+/* ---------- Fusée ---------- */
+const stage = document.getElementById('stage'), inner = document.getElementById('inner'), tip = document.getElementById('tip');
 
+PARTS.forEach(p => p.zones = p.rects.map(r => {
+  const z = document.createElement('div');
+  z.className = 'zone';
+  Object.assign(z.style, { left:r.x+'%', top:r.y+'%', width:r.w+'%', height:r.h+'%' });
+  inner.appendChild(z);
+  return z;
+}));
+
+// Photo coupée en 2 dans la longueur, puis en N rectangles
 const strips = [];
 ['top', 'bottom'].forEach(half => {
   for (let i = 0; i < N; i++) {
@@ -235,16 +297,18 @@ const strips = [];
     d.style.top = half === 'top' ? '0' : '50%';
     d.style.backgroundSize = `${N * 100}% 200%`;
     d.style.backgroundPosition = `${i / (N - 1) * 100}% ${half === 'top' ? 0 : 100}%`;
-    stage.appendChild(d);
+    stage.insertBefore(d, tip);
     strips.push({ el:d, i, dir: half === 'top' ? -1 : 1 });
   }
 });
-function setPhoto(src){ strips.forEach(s => s.el.style.backgroundImage = `url("${src}")`); }
-const probe = new Image();
-probe.onload = () => setPhoto(PHOTO);
-probe.onerror = () => setPhoto(FALLBACK);
-probe.src = PHOTO;
+function load(src, fallback, apply){
+  const im = new Image();
+  im.onload = () => apply(src); im.onerror = () => apply(fallback); im.src = src;
+}
+load(PHOTO, FALLBACK_PHOTO, s => strips.forEach(t => t.el.style.backgroundImage = `url("${s}")`));
+load(COUPE, FALLBACK_COUPE, s => inner.style.backgroundImage = `url("${s}")`);
 
+let hovered = null, activePart = null;
 function update(mx, my){
   const r = stage.getBoundingClientRect(), W = r.width, H = r.height, gaps = [];
   for (let i = 0; i < N; i++) {
@@ -252,14 +316,29 @@ function update(mx, my){
     gaps.push(d >= 1 ? 0 : MAX_OPEN * H * Math.pow(Math.cos(d * Math.PI / 2), 2));
   }
   strips.forEach(s => s.el.style.transform = `translateY(${s.dir * gaps[s.i]}px)`);
-  spots.forEach(h => {
-    const g = gaps[Math.min(N - 1, Math.floor(h.x / 100 * N))];
-    h.el.style.opacity = Math.min(1, g / 24);
-    h.el.style.pointerEvents = g > 20 ? 'auto' : 'none';
-  });
+
+  // Composant sous la souris ? (seulement si la photo est ouverte à cet endroit)
+  const col = Math.max(0, Math.min(N - 1, Math.floor(mx / W * N)));
+  const open = Math.abs(my - H / 2) < gaps[col];
+  const px = mx / W * 100, py = my / H * 100;
+  hovered = open ? PARTS.find(p => p.rects.some(q => px >= q.x && px <= q.x + q.w && py >= q.y && py <= q.y + q.h)) || null : null;
+
+  PARTS.forEach(p => p.zones.forEach(z => {
+    z.classList.toggle('hover', p === hovered);
+    z.classList.toggle('active', p === activePart);
+  }));
+  stage.style.cursor = hovered ? 'pointer' : 'crosshair';
+  tip.textContent = hovered ? hovered.name : '';
+  tip.style.opacity = hovered ? 1 : 0;
+  tip.style.left = mx + 'px'; tip.style.top = my + 'px';
 }
-stage.addEventListener('pointermove', e => { const r = stage.getBoundingClientRect(); update(e.clientX - r.left, e.clientY - r.top); });
+const pos = e => { const r = stage.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+stage.addEventListener('pointermove', e => update(...pos(e)));
 stage.addEventListener('pointerleave', () => update(-99999, -99999));
+stage.addEventListener('click', e => {
+  update(...pos(e));                       // utile sur mobile (pas de survol avant le tap)
+  if (hovered) { activePart = hovered; update(...pos(e)); showPart(hovered); }
+});
 update(-99999, -99999);
 </script>
 </body>
