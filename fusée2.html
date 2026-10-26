@@ -80,6 +80,7 @@
           Ce projet utilise un carburant appelé KNSU, un mélange de 65 % de nitrate de potassium et 35 % de sorbitol (un sucre que l'on trouve dans les pruneaux).
           J'y ajoute aussi 2 % d'oxyde de fer III pour accélérer la combustion.
         </p>
+        <div class="col-lg-7"><img src="carburant.jpg" data-ph="carburant" class="img-fluid rounded-4 shadow margin-bt" style="margin-bottom: 15px;" alt=""></div>
         <p> 
           Les corps des moteurs ont été normalisés et imprimés toujours de la même façon, de manière à ne laisser comme seule variable que la forme de la tuyère.
           Aucun calcul précis n'a été réalisé sur ces moteurs, à part pour la dernière tuyère, qui a été modélisée avec OpenMotor.
@@ -218,6 +219,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+<<<<<<< HEAD
 /* ============ À PERSONNALISER ============
    PHOTO : photo extérieure de la fusée (celle qui se sépare).
    COUPE : image en vue de coupe (ce qu'on découvre dessous). Même ratio 16/9 que la photo.
@@ -228,6 +230,13 @@
               Une pièce de forme complexe = plusieurs rectangles (ils s'allument ensemble). */
 const PHOTO = 'fusee_rendu.png';
 const COUPE = 'fusee_coupe.png';
+=======
+/* ====== À PERSONNALISER ======
+   x / y : position du composant en % de l'image de la fusée.
+   lead  : phrase d'accroche. image : photo du composant (optionnelle).
+   specs : caractéristiques.  sections : autant de blocs titre + texte (HTML autorisé) que tu veux. */
+const PHOTO = 'asset/image/fusee_rendu.png';
+>>>>>>> 5bfbb07730208526cb861bd3984f16c6ed2787ca
 const N = 5, MAX_OPEN = 0.3, RADIUS = 0.25;
 
 const PARTS = [
