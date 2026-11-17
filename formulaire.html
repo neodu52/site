@@ -31,16 +31,28 @@
       <div class="card shadow-sm p-4">
         <h2 class="fw-bold text-center mb-4">Formulaire de contact</h2>
 
-        <form action="send.php" method="POST">
+        
+        <form action="https://formsubmit.co/desservettaznoah@gmail.com" method="POST">
+
+          <!-- Objet du mail reçu -->
+          <input type="hidden" name="_subject" value="Nouveau message depuis mon portfolio">
+
+          <!-- Présentation du mail -->
+          <input type="hidden" name="_template" value="table">
+
+          <!-- Protection anti-spam : champ invisible -->
+          <input type="text" name="_honey" style="display:none">
 
           <div class="mb-3">
             <label class="form-label">Nom / Prénom ou Société / Établissement</label>
-            <input type="text" name="nom" class="form-control" placeholder="Ex: John Dupont ou TechLab Inc." required>
+            <input type="text" name="nom" class="form-control"
+                  placeholder="Ex: John Dupont ou TechLab Inc." required>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Adresse Email</label>
-            <input type="email" name="email" class="form-control" placeholder="exemple@mail.com" required>
+            <input type="email" name="email" class="form-control"
+                  placeholder="exemple@mail.com" required>
           </div>
 
           <div class="mb-3">
@@ -57,14 +69,18 @@
 
           <div class="mb-3">
             <label class="form-label">Votre demande</label>
-            <textarea name="message" class="form-control" rows="5" placeholder="Écrivez ici votre message..." required></textarea>
+            <textarea name="message" class="form-control" rows="5"
+                      placeholder="Écrivez ici votre message..." required></textarea>
           </div>
 
           <div class="text-center">
-            <button type="submit" class="btn btn-primary px-5">Envoyer</button>
+            <button type="submit" class="btn btn-primary px-5">
+              Envoyer
+            </button>
           </div>
 
         </form>
+
       </div>
 
     </div>
